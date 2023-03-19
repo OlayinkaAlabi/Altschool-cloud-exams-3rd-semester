@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: rabbitmq-monitoring
+  namespace: sock-shop
+  labels:
+    release: prometheus 
+spec:
+  selector:
+    matchLabels:
+      name: rabbitmq
+  endpoints:
+    - interval: 5s
+      path: /metrics 
+      port: "exporter"
+  namespaceSelector:
+    matchNames:
+      - "laravel"

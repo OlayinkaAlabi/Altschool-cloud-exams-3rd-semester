@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sock-shop-ingress
+  namespace: sock-shop
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - sock-shop.eaaladejana.live
+    secretName: sock-shop-tls
+  rules:
+     -  host: sock-shop.eaaladejana.live
+        http:
+          paths:
+          - backend:
+              service:
+                name: front-end
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

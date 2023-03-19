@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: shipping-monitoring
+  namespace: sock-shop
+  labels:
+    release: prometheus 
+spec:
+  selector:
+    matchLabels:
+      name: shipping
+  endpoints:
+    - interval: 5s
+      path: /metrics 
+      port: "metrics"
+  namespaceSelector:
+    matchNames:
+      - "laravel"
